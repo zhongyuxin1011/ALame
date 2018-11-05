@@ -1,0 +1,2 @@
+# ALame
+NDK开发，移植Lame至Android端，通过AudioRecord获取MIC的实时PCM数据流，编码为MP3数据流并保存成文件，最终使用MediaPlayer播放。
