@@ -111,7 +111,7 @@ public class AudioCapture {
 
         private boolean mIsLoopExit = false;
         private int mRet;
-        private byte[] mData = new byte[mMinBufferSize > 4096 ? 4096 : mMinBufferSize];
+        private byte[] mData = new byte[mMinBufferSize];
 
         @Override
         public void run() {
