@@ -5,7 +5,7 @@
 
 cmake_minimum_required(VERSION 3.4.1)
 
-set(CMAKE_C_FLAGS "-DSTDC_HEADERS -D__ANDROID_API__=14")
+set(CMAKE_C_FLAGS "-DSTDC_HEADERS -D__ANDROID_API__=14 -mfloat-abi=softfp -mfpu=vfp -ffast-math -O2")
 
 include_directories(
         ${ANDROID_SYSROOT}/usr/include/arm-linux-androideabi

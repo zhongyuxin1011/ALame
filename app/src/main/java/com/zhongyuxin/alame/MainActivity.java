@@ -1,6 +1,7 @@
 package com.zhongyuxin.alame;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -132,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
         mSpinnerBitrate.setAdapter(adapter);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void initEvent() {
         mImageViewAction.setOnTouchListener((view, motionEvent) -> {
             switch (motionEvent.getAction()) {
@@ -396,6 +398,7 @@ public class MainActivity extends AppCompatActivity {
         mMp3Buff = null;
     }
 
+    @SuppressLint("HandlerLeak")
     public void play() {
         if (mHandler == null) {
             mHandler = new Handler() {
