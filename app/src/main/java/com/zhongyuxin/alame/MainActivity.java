@@ -42,8 +42,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 import butterknife.BindView;
@@ -334,7 +337,10 @@ public class MainActivity extends AppCompatActivity {
         int mode = channels == 1 ? 3 : 0;
         int vbr = mRadioButtonCbr.isChecked() ? 0 : (mRadioButtonAbr.isChecked() ? 3 : 6);
         int quality = mSeekBarQuality.getProgress();
-        mHandle = Alame.getAlame().createHandle(sampleRate, channels, bitrate, mode, vbr, quality);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy", Locale.getDefault());
+        mHandle = Alame.getAlame().createHandle(sampleRate, channels, bitrate, mode, vbr, quality
+                , new String[]{"ALame", "zhongyuxin", "Free", dateFormat.format(new Date()),
+                        "This is a mp3 encode test demo!"});
         Log.e(TAG, "createHandle: " + mHandle);
         mProcess = true;
 

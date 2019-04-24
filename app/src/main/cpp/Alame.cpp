@@ -19,7 +19,7 @@ Java_com_zhongyuxin_alame_core_Alame_version(JNIEnv *env, jobject instance) {
 JNIEXPORT jlong JNICALL
 Java_com_zhongyuxin_alame_core_Alame_createHandle(JNIEnv *env, jobject instance, jint sampleHz,
                                                   jint channels, jint bitrate, jint mode, jint vbr,
-                                                  jint quality) {
+                                                  jint quality, jobjectArray information) {
     lame_global_flags *glf = lame_init();
     if (glf == NULL) {
         return -1;
@@ -27,11 +27,40 @@ Java_com_zhongyuxin_alame_core_Alame_createHandle(JNIEnv *env, jobject instance,
     lame_set_num_channels(glf, channels);
     lame_set_in_samplerate(glf, sampleHz);
 //    lame_set_out_samplerate(glf, sampleHz);
-    id3tag_set_title(glf, "ALmae");
-    id3tag_set_artist(glf, "zhongyuxin");
-    id3tag_set_album(glf, "mp3 test");
-    id3tag_set_year(glf, "2018");
-    id3tag_set_comment(glf, "This is a mp3 encode test.");
+    if (information != NULL) {
+        jsize size = env->GetArrayLength(information);
+        if (size > 0) {
+            jstring title = (jstring)env->GetObjectArrayElement(information, 0);
+            const char* vtitle = env->GetStringUTFChars(title, NULL);
+            id3tag_set_title(glf, vtitle);
+            env->ReleaseStringUTFChars(title, vtitle);
+        }
+        if (size > 1) {
+            jstring artist = (jstring)env->GetObjectArrayElement(information, 1);
+            const char* vartist = env->GetStringUTFChars(artist, NULL);
+            id3tag_set_artist(glf, vartist);
+            env->ReleaseStringUTFChars(artist, vartist);
+        }
+        if (size > 2) {
+            jstring album = (jstring)env->GetObjectArrayElement(information, 2);
+            const char* valbum = env->GetStringUTFChars(album, NULL);
+            id3tag_set_album(glf, valbum);
+            env->ReleaseStringUTFChars(album, valbum);
+        }
+        if (size > 3) {
+            jstring year = (jstring)env->GetObjectArrayElement(information, 3);
+            const char* vyear = env->GetStringUTFChars(year, NULL);
+            id3tag_set_year(glf, vyear);
+            env->ReleaseStringUTFChars(year, vyear);
+        }
+        if (size > 4) {
+            jstring comment = (jstring)env->GetObjectArrayElement(information, 4);
+            const char* vcomment = env->GetStringUTFChars(comment, NULL);
+            id3tag_set_comment(glf, vcomment);
+            env->ReleaseStringUTFChars(comment, vcomment);
+        }
+        env->DeleteLocalRef(information);
+    }
     MPEG_mode mpeg_mode = STEREO;
     switch (mode) {
         case 1:

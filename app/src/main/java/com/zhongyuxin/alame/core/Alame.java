@@ -26,18 +26,19 @@ public class Alame {
     /**
      * 创建句柄
      *
-     * @param sampleHz 采样率
-     * @param channels 声道数：1 或 2
-     * @param bitrate  比特率：<= 320
-     * @param mode     模式：STEREO, JOINT_STEREO, DUAL_CHANNEL (not supported), MONO
-     * @param quality  质量：quality=0..9.  0=best (very slow).  9=worst.
-     *                 recommended:  3     near-best quality, not too slow
-     *                 5     good quality, fast
-     *                 7     ok quality, really fast
+     * @param sampleHz      采样率
+     * @param channels      声道数：1 或 2
+     * @param bitrate       比特率：<= 320
+     * @param mode          模式：STEREO, JOINT_STEREO, DUAL_CHANNEL (not supported), MONO
+     * @param quality       质量：quality=0..9.  0=best (very slow).  9=worst.
+     *                      recommended:  3     near-best quality, not too slow
+     *                      5     good quality, fast
+     *                      7     ok quality, really fast
+     * @param information   相关信息数组，长度为5，[title, artist, album, year, comment]
      * @return 句柄值，-1失败
      */
     public native long createHandle(int sampleHz, int channels, int bitrate, int mode, int vbr,
-                                    int quality);
+                                    int quality, String[] information);
 
     /**
      * 销毁句柄
